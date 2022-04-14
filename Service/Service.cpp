@@ -64,3 +64,11 @@ vector<Entity> Service::getAll() {
     vector<Entity> entities = this->repo.getAll();
     return entities;
 }
+
+Entity Service::getEntityFromPos(int pos) {
+    return repo.getEntityFromPos(pos);
+}
+
+int Service::getSize() {
+    return repo.getSize();
+}

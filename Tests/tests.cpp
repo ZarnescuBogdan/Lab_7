@@ -13,7 +13,7 @@ void testAll() {
     testConstructor2();
     testSetterGetter();
     testRepoCRUD();
-    //testServiceCRUD();
+    testServiceCRUD();
 }
 
 void testConstructor() {
@@ -107,6 +107,8 @@ void testServiceCRUD() {
 
     service.delete1(e2);
 
+    assert(service.getSize() == 3);
+    assert(service.getEntityFromPos(1) == e3);
     assert(service.getById(1) == e1);
     assert(service.getById(3) == e3);
     assert(service.getById(5) == e5);

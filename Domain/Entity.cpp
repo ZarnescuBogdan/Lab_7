@@ -25,7 +25,7 @@ Entity::Entity() {
 Entity::Entity(const Entity &entity) {
     this->id = entity.id;
     this->type = new char[strlen(entity.type) + 1];
-    strlcpy(this->type, entity.type, sizeof this->type);
+    strlcpy(this->type, entity.type, size_t(this->type));
     this->number = entity.number;
     this->sum = entity.sum;
 }
@@ -37,12 +37,10 @@ Entity::Entity(const Entity &entity) {
  * @param number number of entity
  * @param sum sum of entity
  */
-Entity::Entity(int id, const char *type1, int number, int sum) {
+Entity::Entity(int id, const char *type, int number, int sum) {
     this->id = id;
-    this->type = new char[strlen(type1) + 1];
-    int size = sizeof this->type;
-    int size1 = sizeof type1;
-    strlcpy(this->type, type1, sizeof this->type + 10);
+    this->type = new char[strlen(type) + 1];
+    strlcpy(this->type, type, size_t(this->type));
     this->number = number;
     this->sum = sum;
 }
@@ -80,7 +78,7 @@ void Entity::setType(const char *type) {
         delete[] this->type;
     }
     this->type = new char[strlen(type) + 1];
-    strlcpy(this->type, type, sizeof this->type);
+    strlcpy(this->type, type, size_t(this->type));
 }
 
 /**
@@ -147,7 +145,7 @@ Entity& Entity::operator=(const Entity &entity) {
  * @return true or false
  */
 bool Entity::operator==(const Entity &entity) {
-    return ((strcmp(this->type, entity.type) == 0) and (this->sum == entity.sum) and (this->number == entity.number));
+    return ((this->sum == entity.sum) and (this->number == entity.number) and (strcmp(this->type, entity.type) == 0));
 }
 
 /**

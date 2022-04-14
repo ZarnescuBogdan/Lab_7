@@ -17,8 +17,10 @@ public:
     void update(Entity entity, Entity newEntity);
     void delete1(Entity entity);
     Entity getById(int id);
+    Entity getEntityFromPos(int pos);
     vector<Entity> getAll();
     virtual ~Service();
+    int getSize();
 };
 
 
