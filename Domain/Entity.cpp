@@ -118,12 +118,12 @@ char* Entity::getType() {
  */
 Entity::~Entity() {
     if(this->type) {
+        delete[] this->type;
         this->id = 0;
         this->type = nullptr;
         this->number = 0;
         this->sum = 0;
     }
-    delete[] this->type;
 }
 
 /**
