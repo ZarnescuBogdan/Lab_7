@@ -61,8 +61,7 @@ Entity Service::getById(int id) {
  * @return all entities from repository
  */
 vector<Entity> Service::getAll() {
-    vector<Entity> entities = this->repo.getAll();
-    return entities;
+    return this->repo.getAll();
 }
 
 Entity Service::getEntityFromPos(int pos) {

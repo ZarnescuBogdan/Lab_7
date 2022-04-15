@@ -7,13 +7,18 @@
 #include "../Domain//Entity.h"
 #include "../Repo/Repo.h"
 #include "../Service/Service.h"
+#include <vector>
 
 void testAll() {
     testConstructor();
     testConstructor2();
     testSetterGetter();
-    testRepoCRUD();
-    testServiceCRUD();
+    testRepoAddEntity();
+    testRepoModifyEntity();
+    testRepoDelete();
+    testServiceCreate();
+    testServiceUpdate();
+    testServiceDelete();
 }
 
 void testConstructor() {
@@ -46,19 +51,21 @@ void testSetterGetter() {
     assert(entity.getSum() == 50);
 }
 
-void testRepoCRUD() {
+void testRepoAddEntity() {
     const char *type1 = "apa";
     const char *type2 = "caldura";
     const char *type3 = "gaz";
     const char *type4 = "altele";
     const char *type5 = "electricitate";
-
     Repo repo;
     Entity e1(1, type1, 4, 100);
     Entity e2(2, type2, 5, 200);
     Entity e3(3, type3, 6, 150);
     Entity e4(4, type5, 7, 70);
     Entity e5(5, type4, 8, 180);
+
+    assert(repo.getSize() == 0);
+
     repo.addEntity(e1);
     repo.addEntity(e2);
     repo.addEntity(e3);
@@ -66,50 +73,101 @@ void testRepoCRUD() {
 
     assert(repo.getEntityById(4) == e4);
     assert(repo.getSize() == 4);
-
-    repo.modifyEntity(e4, e5);
-
-    assert(repo.getEntityById(5) == e5);
-    assert(repo.getSize() == 4);
-
-    repo.deleteEntity(2);
-
-    assert(repo.getSize() == 3);
 }
 
-void testServiceCRUD() {
+void testRepoModifyEntity() {
     const char *type1 = "apa";
     const char *type2 = "caldura";
-    const char *type3 = "gaz";
-    const char *type4 = "altele";
-    const char *type5 = "electricitate";
+
+    Repo repo;
+    Entity e1(1, type1, 4, 100);
+    Entity e2(2, type2, 5, 200);
+
+    repo.addEntity(e1);
+
+    assert(repo.getEntityById(1) == e1);
+    assert(repo.getSize() == 1);
+
+    repo.modifyEntity(e1, e2);
+
+    assert(repo.getEntityById(2) == e2);
+    assert(repo.getSize() == 1);
+}
+
+void testRepoDelete() {
+    const char *type1 = "apa";
+    const char *type2 = "caldura";
+
+    Repo repo;
+    Entity e1(1, type1, 4, 100);
+    Entity e2(2, type2, 5, 200);
+
+
+    repo.addEntity(e1);
+    repo.addEntity(e2);
+
+    assert(repo.getEntityById(1) == e1);
+    assert(repo.getSize() == 2);
+
+    repo.deleteEntity(1);
+
+    assert(repo.getSize() == 1);
+}
+
+void testServiceCreate() {
+    const char *type1 = "apa";
+    const char *type2 = "caldura";
 
     Repo repo;
     Service service(repo);
     Entity e1(1, type1, 4, 100);
     Entity e2(2, type2, 5, 200);
-    Entity e3(3, type3, 6, 150);
-    Entity e4(4, type5, 7, 70);
-    Entity e5(5, type4, 8, 180);
+
     service.create(e1);
     service.create(e2);
-    service.create(e3);
-    service.create(e4);
 
+    assert(service.getSize() == 2);
     assert(service.getById(1) == e1);
     assert(service.getById(2) == e2);
-    assert(service.getById(3) == e3);
-    assert(service.getById(4) == e4);
+}
 
-    service.update(e4, e5);
+void testServiceUpdate() {
+    const char *type1 = "apa";
+    const char *type2 = "caldura";
 
-    assert(service.getById(5) == e5);
+    Repo repo;
+    Service service(repo);
+    Entity e1(1, type1, 4, 100);
+    Entity e2(2, type2, 5, 200);
 
-    service.delete1(e2);
+    service.create(e1);
 
-    assert(service.getSize() == 3);
-    assert(service.getEntityFromPos(1) == e3);
+    assert(service.getSize() == 1);
     assert(service.getById(1) == e1);
-    assert(service.getById(3) == e3);
-    assert(service.getById(5) == e5);
+
+    service.update(e1, e2);
+
+    assert(service.getSize() == 1);
+    assert(service.getById(2) == e2);
+}
+
+void testServiceDelete() {
+    const char *type1 = "apa";
+    const char *type2 = "caldura";
+
+    Repo repo;
+    Service service(repo);
+    Entity e1(1, type1, 4, 100);
+    Entity e2(2, type2, 5, 200);
+
+
+    service.create(e1);
+    service.create(e2);
+
+    assert(service.getSize() == 2);
+
+    service.delete1(e1);
+
+    assert(service.getSize() == 1);
+    assert(service.getEntityFromPos(1) == e2);
 }

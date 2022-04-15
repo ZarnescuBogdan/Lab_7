@@ -9,7 +9,11 @@ void testAll();
 void testConstructor();
 void testConstructor2();
 void testSetterGetter();
-void testRepoCRUD();
-void testServiceCRUD();
+void testRepoAddEntity();
+void testRepoModifyEntity();
+void testRepoDelete();
+void testServiceCreate();
+void testServiceUpdate();
+void testServiceDelete();
 
 #endif //LAB_7_TESTS_H

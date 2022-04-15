@@ -49,36 +49,36 @@ Entity::Entity(int id, const char *type, int number, int sum) {
  * Set id of entity.
  * @param id id of entity
  */
-void Entity::setId(int id) {
-    this->id = id;
+void Entity::setId(int id1) {
+    this->id = id1;
 }
 
 /**
  * Set number of entity.
  * @param number number of entity
  */
-void Entity::setNumber(int number) {
-    this->number = number;
+void Entity::setNumber(int number1) {
+    this->number = number1;
 }
 
 /**
  * Set sum of entity.
  * @param sum sum of entity
  */
-void Entity::setSum(int sum) {
-    this->sum = sum;
+void Entity::setSum(int sum1) {
+    this->sum = sum1;
 }
 
 /**
  * Set type of entity.
  * @param type type of entity
  */
-void Entity::setType(const char *type) {
+void Entity::setType(const char *type1) {
     if(this->type) {
         delete[] this->type;
     }
-    this->type = new char[strlen(type) + 1];
-    strlcpy(this->type, type, size_t(this->type));
+    this->type = new char[strlen(type1) + 1];
+    strlcpy(this->type, type1, size_t(this->type));
 }
 
 /**
